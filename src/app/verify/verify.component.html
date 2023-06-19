@@ -1,0 +1,73 @@
+
+<div class="container">
+  
+    <app-profile></app-profile>
+
+    <form [formGroup]="dateOfBirthForm" (ngSubmit)="verifyAcct()" class="loginFomr">
+        <span class="miniTitle">James's date of birth</span>
+<br><br>
+  <span class="inputField">
+    
+    <div>
+        <label>Month</label>
+        <select type="number" formControlName="month"   id="selectInput">
+          <option value="select month"></option>
+          <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+        </select>
+      </div>
+    <div>
+        <label>Day</label>
+        <select type="day" formControlName="day" id="selectInput" >
+        <option value=""></option>
+        <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+        </select>
+    </div> 
+       <div>
+        <label>Year<span style="font-weight: lighter;color:gray; font-size:12px;"> (YYYY)</span></label><br>
+<input type="year" formControlName="year" placeholder="" id="selectInput" class="yearInput">
+    </div>
+    </span>
+    <br>
+    <div *ngIf="dateOfBirthForm.controls['day'].touched && dateOfBirthForm.controls['day'].errors" class="notification">
+      <div *ngIf="dateOfBirthForm.controls['day'].errors?.['required']">Day is required.</div>
+    </div>
+    
+    <div *ngIf="dateOfBirthForm.controls['month'].touched && dateOfBirthForm.controls['month'].errors" class="notification">
+      <div *ngIf="dateOfBirthForm.controls['month'].errors?.['required']">Month is required.</div>
+    </div>
+    
+    <div *ngIf="dateOfBirthForm.controls['year'].touched && dateOfBirthForm.controls['year'].errors" class="notification">
+      <div *ngIf="dateOfBirthForm.controls['year'].errors?.['required']">Year is required.</div>
+      <div *ngIf="dateOfBirthForm.controls['year'].errors?.['pattern']">Year should be in the format YYYY.</div>
+    </div>
+    
+    <br>
+    <div>
+        <label class="mobileLabel">Mobile Number</label><br>
+        <span style="display: flex;">
+          <input type="text" formControlName="phoneInput" pattern="^\+?1?[ -]?\(?(\d{3})\)?[ -]?(\d{3})[ -]?(\d{4})$" maxlength="10" id="mobileNumber"  >
+        </span>
+        
+        <p class="parag">10-digit number used for scheduling</p>
+    </div>
+  <!---validation--->
+  <div *ngIf="dateOfBirthForm.controls['phoneInput'].touched && dateOfBirthForm.controls['phoneInput'].errors" class="notification">
+    <div *ngIf="dateOfBirthForm.controls['phoneInput'].errors?.['required']"><br>Phone is required.</div>
+  
+  </div>
+  <!-------end valid-->
+    <br>
+    <p class="verificationTerms parag">By verifying this information, you legally confirm that you are, or are acting as caregiver for this person.</p>
+    
+    
+
+    <button type="submit"  [disabled]="!isFormValid() || !isVerified" [ngClass]="{'verified' : isVerified}" id="submit">{{title}}</button>
+
+      </form>
+      
+      
+      
+
+</div>
+
+
